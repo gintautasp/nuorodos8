@@ -171,18 +171,20 @@
 		<input type="button" id="ieskoti_visur" value="Ieškoti visur ..">		
 	</menu>
 	<div id="pagrindine_forma">
-		<label>Nuoroda</label>
-		<input type="text" id="nuoroda" name="nuoroda">
-		<label>Pavadinimas</label>
-		<input type="text" id="pav" name="pav">	
-		<label>Žymos</label>
-		<input type="text" id="zymos" name="zymos">
-		<label>Aprašymas</label>		
-		<textarea  id="aprasymas" name="aprasymas" rows="3"></textarea>
-		<input type="hidden" id="id_nuorodos" name="id_nuorodos" value="0">		
-		<input type="button" id="issaugoti" value="Išsaugoti">
-		<input type="button" id="pasalinti" value="Pašalinti">
-		<input type="button" id="ieskoti_detaliau" value="Ieškoti">			
+		<form method="POST" action="">
+			<label>Nuoroda</label>
+			<input type="text" id="nuoroda" name="nuoroda">
+			<label>Pavadinimas</label>
+			<input type="text" id="pav" name="pav">	
+			<label>Žymos</label>
+			<input type="text" id="zymos" name="zymos">
+			<label>Aprašymas</label>		
+			<textarea  id="aprasymas" name="aprasymas" rows="3"></textarea>
+			<input type="hidden" id="id_nuorodos" name="id_nuorodos" value="0">		
+			<input type="submit" id="issaugoti"  name="issaugoti"  value="Išsaugoti">
+			<input type="button" id="pasalinti" value="Pašalinti">
+			<input type="button" id="ieskoti_detaliau" value="Ieškoti">
+		</form>
 	</div>
 	<div id="paieska_visur">
 		<label>Paieškos tekstas</label>

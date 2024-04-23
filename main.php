@@ -14,10 +14,17 @@
 			
 		gauti nuorodas
 	*/
-	include '../bendram/duomenu_baze.class.php';
+	$dir_bendra = realpath ( __DIR__ . '/../bendram/' ) . '/';
+	
+	include $dir_bendra . 'duomenu_baze.class.php';
 	
 	$db = new DuomenuBaze ( 'nuorodos8' );
 	
+	include $dir_bendra . 'model_db.class.php';
+	
+	include 'class/nuoroda.php';
+	
+	include $dir_bendra . 'controller.class.php';	
 	include 'class/nuorodu_app.php';
 	
 	$nuorodu_app = new NuoroduApp();	
@@ -39,6 +46,6 @@
 		$nuorodu_app -> pasalintiNuoroda();
 	}	
 	
-	$nuorodu_app -> gautiNuorodas();
+	$nuorodu_app -> gautiDuomenis();
 	
 	include 'main.html.php';
