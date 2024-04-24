@@ -19,7 +19,7 @@
 			margin-left: 15px;
 			float: right;
 		}
-		input[type=button] {
+		input[type=button], input[type=submit] {
 			background-color: #808080;
 			border: none;
 			color: white;
@@ -52,6 +52,9 @@
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+	
+		duomenys = {}		
+	
 		$(document).ready( function() {
 		
 			function pasiimti_duomenis_is_data ( elementas ) {
@@ -76,7 +79,26 @@
 				duomenys.aprasymas = $( elementas ).next().attr( 'title' );
 				alert ( JSON.stringify ( duomenys ) );
 				return duomenys;
-			}			
+			}
+			
+		
+
+			function pasiimti_duomenis_ajax ( elementas ) {
+			
+				duomenys.id = $( elementas ).data ( 'id' );	
+
+				if ( parseInt ( duomenys.id ) > 0 ) {
+
+					$.get ( 'http://localhost/nuorodos8/nuorodos-duomenys.php?i=' + duomenys.id , function( data ) {
+					
+						alert( data );
+					
+						duomenys = JSON.parse ( data );
+						duomenys_i_forma(  duomenys );
+					});
+				}
+				return duomenys;				
+			}
 			
 			function duomenys_i_forma(  duomenys ) {
 			
@@ -89,9 +111,7 @@
 			
 			$( '#pagrindine_forma' ).hide();
 			
-			$( '#issaugoti' ).hide();
-			$( '#pasalinti' ).hide();
-			$( '#ieskoti_detaliau' ).hide();	
+			$( '#pasalinti' ).hide();	
 			
 			$( '#paieska_visur' ).hide();			
 			
@@ -99,8 +119,8 @@
 			
 				$( '#pagrindine_forma' ).show();
 				$( '#paieska_visur' ).hide();
-				$( '#issaugoti' ).show();
-				$( '#ieskoti_detaliau' ).hide();
+				
+				$( '#atlikti' ).val ( 'Išsaugoti' );
 				$( '#pasalinti' ).hide();
 				$( '#id_nuorodos' ).val ( 0 );
 			});
@@ -110,8 +130,7 @@
 				$( '#pagrindine_forma' ).show();
 				$( '#paieska_visur' ).hide();
 				
-				$( '#issaugoti' ).hide();				
-				$( '#ieskoti_detaliau' ).show();
+				$( '#atlikti' ).val ( 'Ieškoti' );
 				$( '#pasalinti' ).hide();
 				$( '#id_nuorodos' ).val ( 0 );				
 			});
@@ -128,14 +147,13 @@
 				
 					id_nuorodos = $( this ).data( 'id' );
 																																		// alert( id_nuorodos );
-					duomenys = pasiimti_duomenis_is_html ( this );
-					duomenys_i_forma(  duomenys );
+					duomenys = pasiimti_duomenis_ajax ( this );
+					/* duomenys_i_forma(  duomenys ); */
 					 
 					$( '#pagrindine_forma' ).show();
 					$( '#paieska_visur' ).hide();
-					$( '#issaugoti' ).show();
-					$( '#pasalinti' ).show();					
-					$( '#ieskoti_detaliau' ).hide();					
+					$( '#atlikti' ).val ( 'Pakeisti' );
+					$( '#pasalinti' ).show();
 				});
 			});
 		});
@@ -181,54 +199,29 @@
 			<label>Aprašymas</label>		
 			<textarea  id="aprasymas" name="aprasymas" rows="3"></textarea>
 			<input type="hidden" id="id_nuorodos" name="id_nuorodos" value="0">		
-			<input type="submit" id="issaugoti"  name="issaugoti"  value="Išsaugoti">
+			<input type="submit" id="atlikti"  name="atlikti"  value="Išsaugoti">
 			<input type="button" id="pasalinti" value="Pašalinti">
-			<input type="button" id="ieskoti_detaliau" value="Ieškoti">
 		</form>
 	</div>
 	<div id="paieska_visur">
-		<label>Paieškos tekstas</label>
-		<input type="search" id="nuoroda" name="nuoroda">
-		<input type="button" id="ieskoti_teksto" value="Ieškoti">		
+		<form method="POST" action="">	
+		<label>Paieškos tekstas</label>		
+		<input type="search" id="paieskos_tekstas" name="paieskos_tekstas">
+		<input type="submit" id="ieskoti_teksto"  name="ieskoti_teksto" value="Ieškoti">
+	</form>		
 	</div>
 	<section id="nuorodu_sarasas">
 		<ul>
+<?php
+			foreach ( $nuorodu_app -> nuorodos -> sarasas  as $nuoroda1 ) {
+?>
 			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="1">
-				<a target="_blank" href="https://www.prisijungusi.lt/medziaga/nauji/39/">prisijungusi.lt Pateiktys</a>
+				<input type="button" class="redaguoti" value="&#9998;" data-id="<?= $nuoroda1 [ 'id' ] ?>">
+				<a target="_blank" href="<?= $nuoroda1 [ 'nuoroda' ] ?>" title="<?= $nuoroda1 [ 'aprasymas' ] ?>"><?= $nuoroda1 [ 'pav' ] ?></a>
 			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="2">
-				<a target="_blank" href="https://docs.opencart.com/en-gb/getting-started/">OpenCart dokumentacija</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="3">			
-				<a target="_blank" href="https://marko.lt/wp-content/uploads/2021/01/10_2013_Tinklalapiu_kurimas_dizainas_ir_valdymas.pdf">Ričkutė "Tinklalapių kūrimas dizainas ir valdymas"</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="4">			
-				<a  target="_blank" href="http://svetaine.lt/klausimai/patarimai-kuriant-svetaine/kaip-greiciau-atsidurti-google-ir-kitose-paiesku-sistemose-64">kaip greičiau atsidurti google ir kitose paieškų sistemose?</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="5" data-nuoroda="https://seositecheckup.com/" data-pav="SeoSiteCheckUp.com" data-zymos="SEO, rinkodata" data-aprasymas="Run unlimited analysis on our most powerful servers. Stored reports make it easy to view  progress and past work">			
-				<a  target="_blank" href="https://seositecheckup.com/" title="Run unlimited analysis on our most powerful servers. Stored reports make it easy to view  progress and past work">SeoSiteCheckUp.com</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="6">			
-				<a  target="_blank" href="https://www.seoptimer.com/">SEOpimer.com</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="7">			
-				<a target="_blank" href="https://www.rankwatch.com/tools/web-analyzer.html">SEO Analyzer &and; Website Checker Tool</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="8">				
-				<a target="_blank" href="https://whois.domaintools.com/">Whois lookup</a>
-			</li>
-			<li>
-				<input type="button" class="redaguoti" value="&#9998;" data-id="9">			
-				<a target="_blank" href="http://www.esparama.lt/es_parama_pletra/failai/ESFproduktai/2013_Kompozicijos_ir_grafinio_dizaino_pagrindai.pdf.pdf">2013 Kompozicijos ir grafinio dizaino pagrindai</a>
-			</li>
+<?php
+			}
+?>
 		</ul>
 	</section>
 </body>

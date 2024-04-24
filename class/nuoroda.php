@@ -8,10 +8,10 @@
 		
 			parent::__construct();
 			
-			$this -> nuoroda = $nuoroda;
-			$this -> pav = $pav;
-			$this -> aprasymas = $aprasymas;
-			$this -> zymos = $zymos;
+			$this -> nuoroda = $this -> db -> ercl_db -> real_escape_string ( $nuoroda );
+			$this -> pav = $this -> db -> ercl_db -> real_escape_string ( $pav );
+			$this -> aprasymas = $this -> db -> ercl_db -> real_escape_string ( $aprasymas );
+			$this -> zymos = $this -> db -> ercl_db -> real_escape_string ( $zymos );
 			$this -> id = $id;			
 		}
 		
@@ -24,7 +24,7 @@
 					'" . $this -> nuoroda . "', '" . $this -> pav . "', '" . $this -> aprasymas . "', '" . $this -> zymos . "'
 				)
 					";
-																																		// echo $qw_issaugoti_nauja;
+																																	//	echo $qw_issaugoti_nauja;
 			$this -> db -> uzklausa ( $qw_issaugoti_nauja );
 		}
 	

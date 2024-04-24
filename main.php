@@ -21,8 +21,12 @@
 	$db = new DuomenuBaze ( 'nuorodos8' );
 	
 	include $dir_bendra . 'model_db.class.php';
+	include $dir_bendra . 'model_db_sarasas.class.php';	
 	
 	include 'class/nuoroda.php';
+	include 'class/zymos.php';	
+	
+	include 'class/nuorodos.php';	
 	
 	include $dir_bendra . 'controller.class.php';	
 	include 'class/nuorodu_app.php';
