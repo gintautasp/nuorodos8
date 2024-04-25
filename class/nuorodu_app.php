@@ -2,7 +2,11 @@
 
 	class NuoroduApp extends Controller {
 	
-		public $ar_sukurti_nauja_nuoroda = false, $ar_pakeisti_esama_nuoroda = false, $ar_pasalinti_nuoroda = false, $ar_vykdoma_detali_paieska = false, $ar_vykdoma_tekstine_paieska = false, $nuorodos;
+		public $ar_sukurti_nauja_nuoroda = false, $ar_pakeisti_esama_nuoroda = false, $ar_pasalinti_nuoroda = false
+		
+		, $ar_vykdoma_detali_paieska = false, $ar_vykdoma_tekstine_paieska = false, $ar_pasirinkta_zyma = false
+		
+		, $nuorodos;
 	
 		public function __construct() {
 		
@@ -15,6 +19,7 @@
 			$this -> ar_pasalinti_nuoroda = isset ( $_POST [ 'salinti' ] ) && ( $_POST [ 'salinti' ] == 'Šalinti' )   && ( intval ( $_POST [ 'id_salinamos_nuorodos' ] ) > 0 );			
 			$this -> ar_vykdoma_detali_paieska = isset ( $_POST [ 'atlikti' ] ) && ( $_POST [ 'atlikti' ] == 'Ieškoti' );
 			$this -> ar_vykdoma_tekstine_paieska = isset ( $_POST [ 'ieskoti_teksto' ] ) && ( $_POST [ 'ieskoti_teksto' ] == 'Ieškoti' ) && ( trim( $_POST [ 'paieskos_tekstas' ] ) != '' );
+			$this -> ar_pasirinkta_zyma = isset ( $_GET [ 'tag' ] ) && ( $_GET [ 'tag' ] != '' );
 																										// echo ( $this -> ar_vykdoma_detali_paieska ? 'ieškom' : 'neieškom' );
 		}
 	
@@ -79,7 +84,10 @@
 			
 				$this -> nuorodos -> detaliosPaieskosParametrai ( $_POST [ 'paieskos_tekstas' ], $_POST [ 'paieskos_tekstas' ], $_POST [ 'paieskos_tekstas' ], $_POST [ 'paieskos_tekstas' ], false );
 			}
+			if ( $this -> ar_pasirinkta_zyma ) {
 			
+				$this -> nuorodos -> detaliosPaieskosParametrai ( '', '', '', $_GET [ 'tag' ] );
+			}
 			
 			$this -> nuorodos -> gautiSarasaIsDuomenuBazes();
 		}

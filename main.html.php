@@ -173,26 +173,41 @@
 </head>
 <body>
 	<aside id="zymu_sarasas">
-		<a target="_self" href="?tag=Gintauto">
-			Gintauto(15)
+		<a target="_self" href="/nuorodos8">
+			Visos nuorodos
+		</a>,	
+		<a target="_self" href="?tag=SEO">
+			SEO(1)
+		</a>, 
+		<a target="_self" href="?tag=rinkodata">
+			rinkodata(1)
 		</a>, 
 		<a target="_self" href="?tag=html">
-			html(7)
+			html(2)
 		</a>, 
-		<a target="_self" href="?tag=opencart">
-			opencart(3)
+		<a target="_self" href="?tag=programavimas">
+			programavimas(1)
 		</a>, 
-		<a target="_self" href="?tag=Rimos">
-			Rimos(12)
+		<a target="_self" href="?tag=dizainas">
+			dizainas(1)
 		</a>, 
-		<a target="_self" href="?tag=rinkodara">
-			rinkodara(8)
+		<a target="_self" href="?tag=web programavimas">
+			web programavimas(1)
 		</a>, 
-		<a target="_self" href="?tag=Anželika">
-			Andželika(10)
-		</a>, 
-		<a target="_self" href="?tag=site-pro">
-			site-pro(9)
+		<a target="_self" href="?tag=javascript">
+			javascript(1)
+		</a>,
+		<a target="_self" href="?tag=ajax">
+			ajax(1)
+		</a>,
+		<a target="_self" href="?tag=mysql">
+			mysql(1)
+		</a>,
+		<a target="_self" href="?tag=css">
+			css(2)
+		</a>,
+		<a target="_self" href="?tag=php">
+			php(1)
 		</a>
 	</aside>	
 	<menu>
