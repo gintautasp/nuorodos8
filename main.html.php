@@ -91,8 +91,6 @@
 
 					$.get ( 'http://localhost/nuorodos8/nuorodos-duomenys.php?i=' + duomenys.id , function( data ) {
 					
-						alert( data );
-					
 						duomenys = JSON.parse ( data );
 						duomenys_i_forma(  duomenys );
 					});
@@ -156,6 +154,20 @@
 					$( '#pasalinti' ).show();
 				});
 			});
+			
+			$( '#pasalinti' ).click ( function() {
+			
+				if  ( confirm ( 'Patvirtinkite, kad norite pašalinti šią nuorodą'  ) == true  ) {
+				
+					id_nuorodos = parseInt ( $( '#id_nuorodos' ).val() );
+					
+					if ( id_nuorodos > 0 ) {
+					
+						$( '#id_salinamos_nuorodos' ).val ( id_nuorodos );
+						$( '#salinimo_forma' ).submit();
+					}
+				} 
+			});
 		});
 	</script>
 </head>
@@ -203,6 +215,10 @@
 			<input type="button" id="pasalinti" value="Pašalinti">
 		</form>
 	</div>
+	<form  id="salinimo_forma" method="POST" action="">
+		<input type="hidden" id="id_salinamos_nuorodos" name="id_salinamos_nuorodos" value="0">
+		<input type="hidden" id="salinti"  name="salinti"  value="Šalinti">			
+	</form>
 	<div id="paieska_visur">
 		<form method="POST" action="">	
 		<label>Paieškos tekstas</label>		

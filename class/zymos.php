@@ -7,7 +7,7 @@
 			parent::__construct();
 		}
 		
-		public function atnaujintiZymas( $zymos ) {
+		public function gautiZymuSarasa ( $zymos ) {
 		
 			$lst_zymos = explode ( ',', $zymos );
 			
@@ -17,6 +17,12 @@
 				$lst_zymos [ $i ] = trim ( $zyma );
 				$i++;
 			}
+			return $lst_zymos;
+		}
+		
+		public function atnaujintiZymas ( $zymos ) {
+		
+			$lst_zymos = $this -> gautiZymuSarasa ( $zymos );
 			
 			if ( ( $lst_zymos ) && ( $lst_zymos [ 0 ] != '' ) ) {
 			
@@ -31,6 +37,22 @@
 																																			// echo $qw_iterpti_zymas;						
 				$this -> db -> uzklausa ( $qw_iterpti_zymas );
 			}
+		}
+		
+		public function mazintiZymuKartojimosiKieki ( $zymos ) {
+		
+			$lst_zymos = $this -> gautiZymuSarasa ( $zymos );
+			
+				$qw_mazinti_zymu_pasikartojimo_kieki =
+						"
+					UPDATE `zymos`
+					SET `kiek_kartojasi`=`kiek_kartojasi`-1
+					WHERE
+						`zyma` IN('" . implode ( "', '", $lst_zymos ) . "')
+						";
+																																			// echo $qw_iterpti_zymas;						
+				$this -> db -> uzklausa ( $qw_mazinti_zymu_pasikartojimo_kieki );
+
 		}
 		
 		public function gautiSarasaIsDuomenuBazes() {
