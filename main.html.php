@@ -49,6 +49,9 @@
 		a:hover {
 			text-decoration: underline;
 		}
+		.vienoje_eiluteje {
+			white-spacing: nobr;
+		}
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
@@ -80,8 +83,6 @@
 				alert ( JSON.stringify ( duomenys ) );
 				return duomenys;
 			}
-			
-		
 
 			function pasiimti_duomenis_ajax ( elementas ) {
 			
@@ -175,40 +176,16 @@
 	<aside id="zymu_sarasas">
 		<a target="_self" href="/nuorodos8">
 			Visos nuorodos
-		</a>,	
-		<a target="_self" href="?tag=SEO">
-			SEO(1)
-		</a>, 
-		<a target="_self" href="?tag=rinkodata">
-			rinkodata(1)
-		</a>, 
-		<a target="_self" href="?tag=html">
-			html(2)
-		</a>, 
-		<a target="_self" href="?tag=programavimas">
-			programavimas(1)
-		</a>, 
-		<a target="_self" href="?tag=dizainas">
-			dizainas(1)
-		</a>, 
-		<a target="_self" href="?tag=web programavimas">
-			web programavimas(1)
-		</a>, 
-		<a target="_self" href="?tag=javascript">
-			javascript(1)
 		</a>,
-		<a target="_self" href="?tag=ajax">
-			ajax(1)
-		</a>,
-		<a target="_self" href="?tag=mysql">
-			mysql(1)
-		</a>,
-		<a target="_self" href="?tag=css">
-			css(2)
-		</a>,
-		<a target="_self" href="?tag=php">
-			php(1)
-		</a>
+<?php
+		foreach ( $nuorodu_app -> zymos -> sarasas  as $zyma1 ) {
+?>		
+		<a target="_self" href="?tag=<?= $zyma1 [ 'zyma' ] ?>">
+			<span class="vienoje_eiluteje"><?= $zyma1 [ 'zyma' ] ?> ( <?= $zyma1 [ 'kiek_kartojasi' ] ?> )</span>
+		</a>, 
+<?php
+		}
+?>
 	</aside>	
 	<menu>
 		<input type="button" id="naujas" value="Nauja">

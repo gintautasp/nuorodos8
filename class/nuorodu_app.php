@@ -6,10 +6,11 @@
 		
 		, $ar_vykdoma_detali_paieska = false, $ar_vykdoma_tekstine_paieska = false, $ar_pasirinkta_zyma = false
 		
-		, $nuorodos;
+		, $nuorodos, $zymos;
 	
 		public function __construct() {
 		
+			$this -> zymos = new Zymos();		
 		}
 	
 		public function tikrintiUzklausuDuomenis() {
@@ -33,8 +34,7 @@
 			$nuoroda =  new Nuoroda ( $_POST [ 'nuoroda' ], $_POST [ 'pav' ], $_POST [ 'aprasymas' ], $_POST [ 'zymos' ] );
 			$nuoroda -> issaugotiNauja();
 			
-			$zymos = new Zymos();
-			$zymos -> atnaujintiZymas( $_POST [ 'zymos' ] );
+			$this -> zymos -> atnaujintiZymas( $_POST [ 'zymos' ] );
 		}
 	
 		public function arPakeistiEsamaNuoroda()  {
@@ -49,10 +49,9 @@
 			
 			$nuoroda =  new Nuoroda ( $_POST [ 'nuoroda' ], $_POST [ 'pav' ], $_POST [ 'aprasymas' ], $_POST [ 'zymos' ], $_POST [ 'id_nuorodos' ] );
 			$nuoroda -> pakeistiDuomenis();
-			$zymos = new Zymos();	
 			
-			$zymos -> mazintiZymuKartojimosiKieki ( $sena_nuoroda -> zymos );
-			$zymos -> atnaujintiZymas( $_POST [ 'zymos' ] );			
+			$this -> zymos -> mazintiZymuKartojimosiKieki ( $sena_nuoroda -> zymos );
+			$this -> zymos -> atnaujintiZymas( $_POST [ 'zymos' ] );			
 		}	
 	
 		public function arPasalintiNuoroda() {
@@ -64,11 +63,10 @@
 			$salinama_nuoroda = new Nuoroda ( '', '', '', '', $_POST [ 'id_salinamos_nuorodos' ] );
 			$salinama_nuoroda -> pasiimtiDuomenis() ;
 			
-			$zymos = new Zymos();	
-			$zymos -> mazintiZymuKartojimosiKieki ( $salinama_nuoroda -> zymos );			
+			$this -> zymos = new Zymos();	
+			$this -> zymos -> mazintiZymuKartojimosiKieki ( $salinama_nuoroda -> zymos );			
 			
 			$salinama_nuoroda -> pasalinti();
-		
 		}
 	
 		public function gautiDuomenis() {
@@ -90,6 +88,8 @@
 			}
 			
 			$this -> nuorodos -> gautiSarasaIsDuomenuBazes();
+			
+			$this -> zymos -> gautiSarasaIsDuomenuBazes();
 		}
 	}
 	

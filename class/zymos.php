@@ -57,5 +57,26 @@
 		
 		public function gautiSarasaIsDuomenuBazes() {
 
+			$gw_gauti_sarasa =
+					"
+				SELECT 
+					*
+				FROM 
+					`zymos`
+				WHERE
+					1
+				ORDER BY
+					`kiek_kartojasi` DESC
+					";
+			/*
+			print_r( $_POST );
+			echo $gw_gauti_sarasa;
+			*/
+			$rs_list = $this -> db -> uzklausa ( $gw_gauti_sarasa );
+			
+			while ( $row = $rs_list -> fetch_assoc() ) {
+					
+				$this -> sarasas[] = $row;
+			}
 		}		
 	}
